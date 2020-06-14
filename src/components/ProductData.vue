@@ -14,16 +14,16 @@
             <strong>Actions</strong>
         </div>
         <div v-for="product in products" v-bind:key="product.id" class="product-details">
-            <div class="product-name">
+            <div class="product-name" v-on:click="findProduct(product)">
                 {{ product.name }}
             </div>
-            <div class="product-description">
+            <div class="product-description" v-on:click="findProduct(product)">
                 {{ product.description }}
             </div>
-            <div class="product-price">
+            <div class="product-price" v-on:click="findProduct(product)">
                 {{ product.price }}
             </div>
-            <div class="product-actions">
+            <div class="product-actions" v-on:click="findProduct(product)">
                 <a v-on:click="removeProductDetails(product.id)">remove</a>
             </div>
         </div>
@@ -46,6 +46,10 @@
                     </div>
                     <div id="button-box">
                         <button type="button" id="add-product-button" v-on:click="addProductData">ADD PRODUCT</button>
+                        <button type="button" id="update-product-button" style="display: none;" 
+                            v-bind:class="{'is-active': updateState}" v-on:click="updateProductRecord">
+                            UPDATE PRODUCT
+                        </button>
                     </div>
                 </form>
             </div>
@@ -63,13 +67,15 @@ export default {
     },
     data() {
         return {
+            id: '',
             name: '',
             description: '',
-            price: 0
+            price: '',
+            updateState: false
         }
     },
     methods: {
-        ...mapActions(['addProduct', 'removeProduct']),
+        ...mapActions(['addProduct', 'removeProduct', 'updateProduct']),
         addProductData() {
             var productRecord = {}
             productRecord.name = this.name
@@ -79,6 +85,23 @@ export default {
         },
         removeProductDetails(id) {
             this.removeProduct(id)
+        },
+        findProduct(product) {
+            this.updateState = true
+            this.id = product.id
+            this.name = product.name
+            this.description = product.description
+            this.price = product.price
+        },
+        updateProductRecord() {
+            var productInformation = {}
+            productInformation.id = this.id
+            productInformation.name = this.name
+            productInformation.description = this.description
+            productInformation.price = parseInt(this.price)
+            //console.log(this.id)
+            //console.log(productInformation)
+            this.updateProduct(productInformation)
         }
     }
 }    
@@ -130,5 +153,15 @@ textarea {
 .product-actions a:hover {
     text-decoration: underline;
     cursor: pointer;
+}
+#update-product-button {
+    padding: 5px;
+    outline: 0;
+    background: #2DD15FFF;
+    color: white;
+    margin-left: 2px;
+}
+.is-active {
+    display: inline-block !important;
 }
 </style>

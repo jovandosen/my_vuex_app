@@ -14,11 +14,18 @@ const actions = {
     },
     removeProduct({ commit }, id) {
         commit('removeProductData', id)
+    },
+    updateProduct({ commit }, record) {
+        commit('updateProductData', record)
     }
 }
 const mutations = {
     addNewProduct: (state, product) => state.products.push(product),
-    removeProductData: (state, id) => state.products = state.products.filter(product => product.id !== id)
+    removeProductData: (state, id) => state.products = state.products.filter(product => product.id !== id),
+    updateProductData(state, productData) {
+        state.products = state.products.filter(product => product.id !== productData.id)
+        state.products.push(productData)
+    }
 }
 
 export default {
