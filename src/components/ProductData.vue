@@ -10,6 +10,9 @@
         <div class="product-price">
             <strong>Price</strong>
         </div>
+        <div class="product-actions">
+            <strong>Actions</strong>
+        </div>
         <div v-for="product in products" v-bind:key="product.id" class="product-details">
             <div class="product-name">
                 {{ product.name }}
@@ -19,6 +22,9 @@
             </div>
             <div class="product-price">
                 {{ product.price }}
+            </div>
+            <div class="product-actions">
+                <a v-on:click="removeProductDetails(product.id)">remove</a>
             </div>
         </div>
         <div id="product-form">
@@ -39,7 +45,7 @@
                             autocomplete="off" min="0">
                     </div>
                     <div id="button-box">
-                        <button type="button" id="add-product-button">ADD PRODUCT</button>
+                        <button type="button" id="add-product-button" v-on:click="addProductData">ADD PRODUCT</button>
                     </div>
                 </form>
             </div>
@@ -48,7 +54,7 @@
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'ProductData',
@@ -61,6 +67,19 @@ export default {
             description: '',
             price: 0
         }
+    },
+    methods: {
+        ...mapActions(['addProduct', 'removeProduct']),
+        addProductData() {
+            var productRecord = {}
+            productRecord.name = this.name
+            productRecord.description = this.description
+            productRecord.price = this.price
+            this.addProduct(productRecord)
+        },
+        removeProductDetails(id) {
+            this.removeProduct(id)
+        }
     }
 }    
 </script>
@@ -71,9 +90,9 @@ export default {
     margin-left: auto;
     margin-right: auto;
 }    
-.product-name, .product-description, .product-price {
+.product-name, .product-description, .product-price, .product-actions {
     float: left;
-    width: 31%;
+    width: 23%;
     border: 1px solid #808080;
     padding: 10px;
 }
@@ -99,8 +118,17 @@ textarea {
 #add-product-button {
     padding: 5px;
     outline: 0;
+    background: #1F88DFFF;
+    color: white;
 }
 #button-box {
     text-align: left;
+}
+.product-actions a {
+    color: red;
+}
+.product-actions a:hover {
+    text-decoration: underline;
+    cursor: pointer;
 }
 </style>

@@ -8,8 +8,18 @@ const state = {
 const getters = {
     products: state => state.products
 }
-const actions = {}
-const mutations = {}
+const actions = {
+    addProduct({ commit }, product) {
+        commit('addNewProduct', product)
+    },
+    removeProduct({ commit }, id) {
+        commit('removeProductData', id)
+    }
+}
+const mutations = {
+    addNewProduct: (state, product) => state.products.push(product),
+    removeProductData: (state, id) => state.products = state.products.filter(product => product.id !== id)
+}
 
 export default {
     state,
