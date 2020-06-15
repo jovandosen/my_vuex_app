@@ -14,94 +14,36 @@
             <strong>Actions</strong>
         </div>
         <div v-for="product in products" v-bind:key="product.id" class="product-details">
-            <div class="product-name" v-on:click="findProduct(product)">
-                {{ product.name }}
-            </div>
-            <div class="product-description" v-on:click="findProduct(product)">
-                {{ product.description }}
-            </div>
-            <div class="product-price" v-on:click="findProduct(product)">
-                {{ product.price }}
-            </div>
-            <div class="product-actions" v-on:click="findProduct(product)">
-                <a v-on:click="removeProductDetails(product.id)">remove</a>
-            </div>
+            <ProductRecord v-bind:product="product" v-on:get-product-data="productDetails"/>
         </div>
-        <div id="product-form">
-            <h4>Add Product</h4>
-            <div id="form-box">
-                <form>
-                    <div id="name-box">
-                        <input type="text" v-model="name" placeholder="Enter Product Name..." autocomplete="off">
-                    </div>
-                    <div id="description-box">
-                        <textarea cols="50" rows="5" v-model="description" 
-                            placeholder="Enter Product Description..." autocomplete="off">
-                            
-                        </textarea>
-                    </div>
-                    <div id="price-box">
-                        <input type="number" v-model="price" placeholder="Enter Product Price" 
-                            autocomplete="off" min="0">
-                    </div>
-                    <div id="button-box">
-                        <button type="button" id="add-product-button" v-on:click="addProductData">ADD PRODUCT</button>
-                        <button type="button" id="update-product-button" style="display: none;" 
-                            v-bind:class="{'is-active': updateState}" v-on:click="updateProductRecord">
-                            UPDATE PRODUCT
-                        </button>
-                    </div>
-                </form>
-            </div>
-        </div>
+        <AddProduct v-bind:product="product" v-bind:updateState="updateState"/>
     </div>
 </template>
 
 <script>
-import { mapGetters, mapActions } from 'vuex'
+import { mapGetters } from 'vuex'
+import AddProduct from './AddProduct.vue'
+import ProductRecord from './ProductRecord.vue'
 
 export default {
     name: 'ProductData',
-    computed: {
-        ...mapGetters(['products'])
-    },
     data() {
         return {
-            id: '',
-            name: '',
-            description: '',
-            price: '',
+            product: {},
             updateState: false
         }
     },
+    computed: {
+        ...mapGetters(['products'])
+    },
+    components: {
+        AddProduct,
+        ProductRecord
+    },
     methods: {
-        ...mapActions(['addProduct', 'removeProduct', 'updateProduct']),
-        addProductData() {
-            var productRecord = {}
-            productRecord.name = this.name
-            productRecord.description = this.description
-            productRecord.price = this.price
-            this.addProduct(productRecord)
-        },
-        removeProductDetails(id) {
-            this.removeProduct(id)
-        },
-        findProduct(product) {
+        productDetails(item) {
+            this.product = item
             this.updateState = true
-            this.id = product.id
-            this.name = product.name
-            this.description = product.description
-            this.price = product.price
-        },
-        updateProductRecord() {
-            var productInformation = {}
-            productInformation.id = this.id
-            productInformation.name = this.name
-            productInformation.description = this.description
-            productInformation.price = parseInt(this.price)
-            //console.log(this.id)
-            //console.log(productInformation)
-            this.updateProduct(productInformation)
         }
     }
 }    
@@ -112,56 +54,11 @@ export default {
     max-width: 1200px;
     margin-left: auto;
     margin-right: auto;
-}    
+}
 .product-name, .product-description, .product-price, .product-actions {
     float: left;
     width: 23%;
     border: 1px solid #808080;
     padding: 10px;
-}
-#product-form {
-    margin-top: 30px;
-    float: left;
-}
-
-#product-form h4 {
-    text-align: left;
-}
-input[type="text"], input[type="number"], textarea {
-    padding: 5px;
-    width: 100%;
-    outline: 0;
-}
-textarea {
-    resize: vertical;
-}
-#name-box, #description-box, #price-box {
-    margin-bottom: 5px;
-}
-#add-product-button {
-    padding: 5px;
-    outline: 0;
-    background: #1F88DFFF;
-    color: white;
-}
-#button-box {
-    text-align: left;
-}
-.product-actions a {
-    color: red;
-}
-.product-actions a:hover {
-    text-decoration: underline;
-    cursor: pointer;
-}
-#update-product-button {
-    padding: 5px;
-    outline: 0;
-    background: #2DD15FFF;
-    color: white;
-    margin-left: 2px;
-}
-.is-active {
-    display: inline-block !important;
-}
+}   
 </style>
