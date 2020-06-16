@@ -6,6 +6,7 @@
             <th>Email</th>
             <th>Age</th>
             <th>Role</th>
+            <th>Actions</th>
         </tr>
     </thead>
 </template>

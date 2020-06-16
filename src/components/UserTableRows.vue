@@ -6,12 +6,13 @@
             <td>{{ user.email }}</td>
             <td>{{ user.age }}</td>
             <td>{{ user.role }}</td>
+            <td class="actions-box"><a v-on:click="deleteUser(user.id)">delete</a></td>
         </tr>
     </tbody>
 </template>
 
 <script>
-import { mapGetters } from 'vuex'
+import { mapGetters, mapActions } from 'vuex'
 
 export default {
     name: 'UserTableRows',
@@ -21,6 +22,12 @@ export default {
     data() {
         return {
             rowHoverStyle: 'add-hover-style'
+        }
+    },
+    methods: {
+        ...mapActions(['removeUser']),
+        deleteUser(id) {
+            this.removeUser(id)
         }
     }
 }    
@@ -34,5 +41,12 @@ export default {
 }
 .add-hover-style:hover {
     background-color: #C0C0C0FF;
-}    
+} 
+.actions-box a {
+    color: red;
+}   
+.actions-box a:hover {
+    text-decoration: underline;
+    cursor: pointer;
+}
 </style>

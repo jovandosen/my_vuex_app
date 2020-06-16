@@ -22,9 +22,9 @@
                 <div id="role-box">
                     <select v-model="role" id="role">
                         <option value="" disabled>Please select role</option>
-                        <option>Admin</option>
-                        <option>Editor</option>
-                        <option>Subscriber</option>
+                        <option value="admin">Admin</option>
+                        <option value="editor">Editor</option>
+                        <option value="subscriber">Subscriber</option>
                     </select>
                 </div>
                 <div id="button-box">
@@ -59,7 +59,7 @@ export default {
             user.firstName = this.firstName
             user.lastName = this.lastName
             user.email = this.email
-            user.age = this.age
+            user.age = parseInt(this.age)
             user.role = this.role
             this.addUser(user)
         },

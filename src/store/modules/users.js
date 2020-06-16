@@ -15,11 +15,21 @@ const getters = {
 const actions = {
     addUser({ commit }, user) {
         commit('newUser', user)
+    },
+    removeUser({ commit }, id) {
+        commit('removeUserData', id)
     }
 }
 const mutations = {
-    newUser(user) {
+    newUser(state, user) {
         state.users.push(user)
+    },
+    removeUserData(state, id) {
+        state.users = state.users.filter(function(user){
+            if(user.id !== id){
+                return user
+            }
+        })
     }
 }
 
