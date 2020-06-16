@@ -4,11 +4,11 @@
         <div id="user-table-data">
             <table style="width: 100%" id="user-table">
                 <UserTableHeading/>
-                <UserTableRows/>
+                <UserTableRows v-on:get-user="getUserData"/>
             </table>
         </div>
         <div id="user-form-box">
-            <AddUser/>
+            <AddUser v-bind:user="user"/>
         </div>
     </div>
 </template>
@@ -24,6 +24,16 @@ export default {
         UserTableHeading,
         UserTableRows,
         AddUser
+    },
+    data() {
+        return {
+            user: {}
+        }
+    },
+    methods: {
+        getUserData(user) {
+            this.user = user
+        }
     }
 }    
 </script>

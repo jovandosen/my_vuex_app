@@ -62,6 +62,7 @@ export default {
             user.age = parseInt(this.age)
             user.role = this.role
             this.addUser(user)
+            this.clearForm()
         },
         findMaxUserId() {
             var ids = []
@@ -70,10 +71,23 @@ export default {
                 ids.push(allUsers[i].id)
             }
             return Math.max.apply(Math, ids)
+        },
+        clearForm() {
+            this.firstName = ''
+            this.lastName = ''
+            this.email = ''
+            this.age = 0
+            this.role = ''
         }
     },
     computed: {
         ...mapGetters(['users'])
+    },
+    props: {
+        user: {
+            type: Object,
+            required: false
+        }
     }
 }    
 </script>
@@ -107,5 +121,8 @@ export default {
     color: white;
     background-color: #21A2DDFF;
     outline: 0;
+}
+#button-box {
+    margin-bottom: 20px;
 }
 </style>

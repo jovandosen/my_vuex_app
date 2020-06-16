@@ -1,6 +1,6 @@
 <template>
     <tbody>
-        <tr v-for="user in users" v-bind:key="user.id" v-bind:class="rowHoverStyle">
+        <tr v-for="user in users" v-bind:key="user.id" v-bind:class="rowHoverStyle" v-on:click="$emit('get-user', user)">
             <td>{{ user.firstName }}</td>
             <td>{{ user.lastName }}</td>
             <td>{{ user.email }}</td>
