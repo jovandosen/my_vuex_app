@@ -2,18 +2,21 @@
     <div id="app">
         <ProductData/>
         <UserList/>
+        <AppTests/>
     </div>
 </template>
 
 <script>
 import ProductData from './components/ProductData.vue'
 import UserList from './components/UserList.vue'
+import AppTests from './components/AppTests.vue'
 
 export default {
     name: 'App',
     components: {
         ProductData,
-        UserList
+        UserList,
+        AppTests
     }
 }
 </script>
