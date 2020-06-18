@@ -137,6 +137,32 @@ export default {
             value = value.trim()
             return value.charAt(0).toUpperCase() + value.slice(1)
         }
+    },
+    mounted() {
+        // try with created hook, works well with created hook
+        // try with beforeCreate hook, does not work with beforeCreate hook
+        if(localStorage.firstName) this.firstName = localStorage.firstName
+        if(localStorage.lastName) this.lastName = localStorage.lastName
+        if(localStorage.email) this.email = localStorage.email
+        if(localStorage.age) this.age = localStorage.age 
+        if(localStorage.role) this.role = localStorage.role  
+    },
+    watch: {
+        firstName(newFirstName) {
+            localStorage.firstName = newFirstName
+        },
+        lastName(newLastName) {
+            localStorage.lastName = newLastName
+        },
+        email(newEmail) { 
+            localStorage.email = newEmail
+        },
+        age(newAge) {
+            localStorage.age = newAge
+        },
+        role(newRole) {
+            localStorage.role = newRole
+        }
     }
 }    
 </script>
