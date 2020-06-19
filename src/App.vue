@@ -3,6 +3,7 @@
         <ProductData/>
         <UserList/>
         <AppTests/>
+        <pdf src="./static/CV.pdf"></pdf>   
     </div>
 </template>
 
@@ -10,13 +11,15 @@
 import ProductData from './components/ProductData.vue'
 import UserList from './components/UserList.vue'
 import AppTests from './components/AppTests.vue'
+import pdf from 'vue-pdf'
 
 export default {
     name: 'App',
     components: {
         ProductData,
         UserList,
-        AppTests
+        AppTests,
+        pdf
     }
 }
 </script>
